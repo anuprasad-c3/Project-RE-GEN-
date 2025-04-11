@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eWaste Awareness | Protecting Our Planet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: rgb(7, 143, 255);
+            --secondary-color: rgb(7, 152, 255);
+            --text-color: #1f2937;
+            --background-color: #e5e7eb;
+          }
+          
+          body {
+            font-family: "Poppins", sans-serif;
+            background-color: #d1d5db;
+            color: var(--text-color);
+            line-height: 1.6;
+          }
+          
+          .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+          }
+          
+          .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url("/static/img//awareness.webp");
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+          }
+          
+          .hero-content h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+          }
+          
+          .hero-content p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 0 auto 30px;
+          }
+          
+          .section {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+          }
+          
+          .section h2 {
+            font-size: 2em;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+          }
+          
+          .stat h3 {
+            font-size: 2.5em;
+            color: var(--primary-color);
+          }
+          
+          .call-to-action {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-radius: 8px;
+          }
+          
+          .call-to-action h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+          }
+          
+          @keyframes typewriter {
+            from {
+              width: 0;
+            }
+            to {
+              width: 100%;
+            }
+          }
+          
+          @keyframes blink {
+            50% {
+              border-color: transparent;
+            }
+          }
+          
+          .typewriter {
+            overflow: hidden;
+            font-weight:800;
+            border-right: 0.15em solid #ffc107;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: typewriter 4s steps(40, end), blink 0.75s step-end infinite;
+          }
+          
+          .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+          }
+          
+          .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          @media (max-width: 992px) {
+            .hero {
+                height: 50vh;
+                padding: 20px;
+                text-align: center;
+            }
+        
+            .hero-content h1 {
+                font-size: 2em;
+            }
+        
+            .hero-content p {
+                font-size: 1em;
+            }
+        
+            .statistics .stat {
+                text-align: center;
+            }
+        
+            .stat h3 {
+                font-size: 2em;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                height: auto;
+                padding: 40px 20px;
+            }
+        
+            .hero-content h1 {
+                font-size: 1.8em;
+            }
+        
+            .hero-content p {
+                font-size: 1em;
+            }
+        
+            .container {
+                padding: 0 15px;
+            }
+        
+            .section {
+                padding: 30px;
+            }
+        
+            .call-to-action {
+                padding: 30px;
+            }
+        
+            .call-to-action h2 {
+                font-size: 2em;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: auto;
+                padding: 20px;
+            }
+        
+            .hero-content h1 {
+                font-size: 1.5em;
+            }
+        
+            .hero-content p {
+                font-size: 0.9em;
+            }
+        
+            .hero-content .btn {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+        
+            .section h2 {
+                font-size: 1.5em;
+            }
+        
+            .stat h3 {
+                font-size: 1.8em;
+            }
+        }
+        
+          
+          
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">eWaste Awareness</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#problem">The Problem</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#benefits">Benefits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#stats">Statistics</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <div class="hero-content text-center">
+                <h1 class="mb-4 typewriter" id="hero-title"></h1>
+                <p class="mb-5 fade-in-up" id="hero-subtitle">Learn, Act, and Inspire to create a sustainable future for our planet.</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div id="about" class="section">
+            <h2>What is eWaste?</h2>
+            <p>eWaste, or electronic waste, refers to discarded electrical or electronic devices. These include things like old smartphones, laptops, televisions, computers, and other electronics that are no longer in use.</p>
+            <img src="/static/img//awareness.webp" alt="eWaste" class="img-fluid rounded" loading="lazy">
+        </div>
+
+        <div id="problem" class="section">
+            <h2>Why is eWaste a Problem?</h2>
+            <p>Improper disposal of eWaste can lead to harmful environmental effects. Many electronics contain hazardous materials such as lead, mercury, and cadmium, which can leak into the soil and water, causing serious environmental damage. Additionally, eWaste often ends up in landfills where it contributes to pollution.</p>
+            <p>As the volume of electronic waste continues to grow, it is crucial to raise awareness about the importance of recycling and proper disposal.</p>
+        </div>
+
+        <div id="benefits" class="section">
+            <h2>Benefits of eWaste Recycling</h2>
+            <p>Recycling eWaste has numerous benefits, including:</p>
+            <ul>
+                <li>Conserving natural resources by extracting valuable metals like gold, silver, and copper.</li>
+                <li>Reducing pollution by preventing harmful chemicals from leaking into the environment.</li>
+                <li>Saving energy and reducing carbon emissions compared to mining new raw materials.</li>
+                <li>Creating jobs in the recycling and refurbishment industries.</li>
+                <li>Promoting a circular economy and sustainable consumption patterns.</li>
+            </ul>
+        </div>
+
+        <div id="stats" class="statistics row">
+            <div class="col-md-4 mb-4">
+                <div class="stat card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">50M</h3>
+                        <p class="card-text">Metric tons of eWaste are produced globally each year.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="stat card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">80%</h3>
+                        <p class="card-text">Of eWaste is not properly recycled and ends up in landfills.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="stat card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">20%</h3>
+                        <p class="card-text">Of eWaste is safely recycled and reused.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cta" class="call-to-action text-center py-5">
+            <h2>Make a Difference Today</h2>
+            <p>Join us in creating a sustainable future by responsibly recycling your electronic waste.</p>
+            
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+              anchor.addEventListener("click", function (e) {
+                e.preventDefault()
+                document.querySelector(this.getAttribute("href")).scrollIntoView({
+                  behavior: "smooth",
+                })
+              })
+            })
+          
+            // Animate statistics on scroll
+            function animateStats() {
+              const stats = document.querySelectorAll(".stat h3")
+              stats.forEach((stat) => {
+                const target = Number.parseInt(stat.innerText)
+                let current = 0
+                const increment = target / 100
+                const timer = setInterval(() => {
+                  current += increment
+                  stat.innerText = Math.round(current)
+                  if (current >= target) {
+                    clearInterval(timer)
+                    stat.innerText = target
+                  }
+                }, 20)
+              })
+            }
+          
+            // Intersection Observer to trigger animation when stats are in view
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    animateStats()
+                    observer.unobserve(entry.target)
+                  }
+                })
+              },
+              { threshold: 0.5 },
+            )
+          
+            observer.observe(document.querySelector(".statistics"))
+          
+            // Typewriter effect
+            const heroTitle = document.getElementById("hero-title")
+            const text = "Join the Fight Against E-Waste"
+            let i = 0
+          
+            function typeWriter() {
+              if (i < text.length) {
+                heroTitle.innerHTML += text.charAt(i)
+                i++
+                setTimeout(typeWriter, 100)
+              } else {
+                // Show subtitle and button after typing is complete
+                document.getElementById("hero-subtitle").classList.add("visible")
+                document.getElementById("hero-button").classList.add("visible")
+              }
+            }
+          
+            typeWriter()
+          })
+          
+          
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,66 @@
+from django.urls import path, re_path
+from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('adminLogin/', views.adminLogin, name='adminLogin'),
+    path('admin_ui/', views.admin_ui, name='admin_ui'),
+    path('home/', views.home, name='home'),
+    path('user-edit/<int:user_id>/', views.user_edit, name='user_edit'),
+    path('upload_profile_photo/', views.upload_profile_photo, name='upload_profile_photo'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('login_call/',views.login_call,name='login_call'),
+    re_path(r'logout/$', views.logout_view,name='logout'),
+    path('contact/', views.contact, name='contact'),
+    path('registration/', views.registration, name='registration'),
+    path('userloginpage/', views.userloginpage, name='userloginpage'),
+
+    path('UserLogin/', views.UserLogin, name='UserLogin'),
+    path('register/', views.register, name='register'),
+    path('add/', views.add, name='add'),
+    path('added_item/', views.added_item, name='added_item'),
+    path('work/', views.work, name='work'),
+    path('itemview/',views.itemview,name='itemview'),
+    path('adminDash/',views.adminDash,name='adminDash'),
+    path('req_pickup/',views.req_pickup,name='req_pickup'),
+    path('deleteprd/<int:pid>/', views.deleteprd, name='deleteprd'),
+    path('product-list/', views.product_list, name='product_list'),
+    path('edit-user/<int:user_id>/', views.edit_user, name='edit_user'),
+    path('delete-user/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('manage-users/', views.manage_users, name='manage_users'),
+    path('user_itemview/', views.user_itemview, name='user_itemview'),
+   path('us_productdetail/<int:product_id>/', views.us_productdetail, name='us_productdetail'),
+    path('request-pickup/', views.request_pickup, name='request_pickup'),
+    path('add_to_wishlist/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
+    path('admin_report/', views.admin_report, name='admin_report'),
+    path('update-status/<int:order_id>/<str:status>/', views.update_status, name='update_status'),
+    path('filter_reports/', views.filter_reports, name='filter_reports'),
+    path('export_reports/', views.export_reports, name='export_reports'),
+    path('view_cart/', views.view_cart, name='view_cart'),
+    path('remove_from_cart/<int:cart_item_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('order/<int:product_id>/', views.order, name='order'),
+    path('export_orders/', views.export_orders, name='export_orders'),
+    path('order_success/<int:order_id>/', views.order_success, name='order_success'),
+    path('my_orders/', views.my_orders, name='my_orders'),
+    path('admin_orders', views.admin_orders, name='admin_orders'),
+    path('admin_orders/<int:order_id>/update/<str:status>/', views.update_order_status, name='update_order_status'),
+    path('user_awareness', views.user_awareness, name='user_awareness'),
+    path('admin_feedback/', views.admin_feedback_view, name='admin_feedback'),
+    re_path(r'deletefb/(\d+)$', views.deleteStd,name='deletefb'),
+    path('feedback_success/', views.feedback_success, name='feedback_success'),
+    path('submit_feedback/', views.submit_feedback, name='submit_feedback'),
+    path('admin_feedback_view/', views.admin_feedback_view, name='admin_feedback_view'),
+    path('edit_product/<int:product_id>/', views.edit_product, name='edit_product'),
+    path('about/', views.about_page, name='about'),
+    path('forgot-password/', views.forgot_password, name='forgot_password'),
+    path('verify-otp/', views.verify_otp, name='verify_otp'),
+    path('reset-password/', views.reset_password, name='reset_password'),
+    path('verify_email/', views.verify_email, name='verify_email'),
+     path('resend_otp/',views.resend_otp, name='resend_otp'),
+
+    
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

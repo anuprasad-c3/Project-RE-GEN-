@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Management</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c3e50, #bdc3c7);
+            color: #333;
+        }
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top:0;
+            z-index:1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+        }
+        .header-title {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color:#ffc107;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        .search-bar{
+            margin-bottom:30px;
+            text-align:center;
+        }
+        .search-bar input {
+            width: 80%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .search-bar input:focus {
+            outline: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-color: #ffc107;
+        }
+        .search-container {
+            position: relative;
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        .search-container .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 16px;
+            pointer-events: none; /* Makes the icon unclickable */
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 40px; /* Adjust left padding for the icon */
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .search-container input:focus {
+            outline: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-color:rgb(255, 214, 7);
+        }
+        
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            overflow:hidden;
+            text-align: center;
+            padding:20px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            
+        }
+        .card h3 {
+            margin: 1rem 0 0.5rem;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .card p {
+            margin: 0.5rem 0 1rem;
+            color: #666;
+        }
+        .card button {
+            background-color: #ffc107;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .card button:hover {
+            background-color: #ff9800;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1 class="header-title">RE-GEN Solutions</h1>
+    </header>
+    <div class="container">
+        <div class="search-bar">
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search" placeholder="Search for items...">
+            </div>
+        </div>
+        
+        <div class="items-grid" id="itemsGrid">
+         {% for product in product %}
+            <!-- Sample Cards -->
+            <div class="card">
+                <img src="{% static 'media/' %}{{ product.image1 }}" alt="Product Image">
+                <h3>{{ product.name }}</h3>
+                <p> {{ product.description }}</p>
+                <button onclick="window.location.href='{% url 'us_productdetail' product.id %}'">View Details</button>
+
+            </div>
+         {% endfor %}
+        </div>
+    </div>
+    <script>
+        document.getElementById('search').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const itemName = card.querySelector('h3').textContent.toLowerCase();
+                if (itemName.includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        function toggleProfilePopup() {
+            const popup = document.getElementById('profilePopup');
+            popup.classList.toggle('active');
+        }
+
+        function logout() {
+            alert('Logging out...');
+            window.location.href = "{% url 'index' %}";
+        }
+    </script>
+</body>
+</html>

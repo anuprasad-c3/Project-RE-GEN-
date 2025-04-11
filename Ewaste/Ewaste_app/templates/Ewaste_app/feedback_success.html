@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Submitted</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .feedback-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 5rem;
+            transition: all 0.3s ease;
+        }
+        .feedback-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .icon-circle {
+            background-color: #28a745;
+            color: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            color:white;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="feedback-card text-center">
+                    <div class="icon-circle">
+                        <i class="fas fa-check fa-3x"></i>
+                    </div>
+                    <h2 class="mb-4">Thank You for Your Feedback!</h2>
+                    <p class="lead mb-4">Your feedback has been successfully submitted. We greatly appreciate your input and will use it to enhance our services.</p>
+                    <hr>
+                    <p class="mb-4">If you have any additional comments or suggestions, please don't hesitate to reach out to us.</p>
+                    <a href="{% url 'home' %}" class="btn btn-custom btn-lg">
+                        <i class="fas fa-home me-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const feedbackCard = document.querySelector('.feedback-card');
+            feedbackCard.style.opacity = '0';
+            feedbackCard.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                feedbackCard.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                feedbackCard.style.opacity = '1';
+                feedbackCard.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
+

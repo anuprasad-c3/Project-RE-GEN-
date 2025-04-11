@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Users</title>
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      height: 100vh;
+      background: linear-gradient(45deg, #1a1a1a, #2c2c2c);
+      padding-top: 20px;
+      position: fixed;
+      width: 250px;
+      transition: all 0.3s;
+    }
+    .sidebar .nav-link {
+      color: #fff;
+      padding: 10px 15px;
+      transition: all 0.3s;
+    }
+    .sidebar .nav-link:hover, .sidebar .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+    .sidebar .nav-link i {
+      margin-right: 10px;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      transition: all 0.3s;
+    }
+    .navbar {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    }
+    .navbar-brand {
+      font-weight: 600;
+      color: #3a3a3a;
+    }
+    h1 {
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .table {
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+    }
+    .table-hover tbody tr:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s ease;
+    }
+    .table th, .table td {
+      vertical-align: middle;
+      text-align: center;
+      padding: 12px 20px;
+    }
+    .table th {
+      background: #f8f9fa;
+      font-weight: 600;
+    }
+    .btn-edit, .btn-delete {
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    .btn-edit {
+      background-color: #3498db;
+      color: #fff;
+    }
+    .btn-edit:hover {
+      background-color: #2980b9;
+    }
+    .btn-delete {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+    .btn-delete:hover {
+      background-color: #c0392b;
+    }
+    .table td img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    }
+    .btn {
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        margin-left: -250px;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .sidebar.active {
+        margin-left: 0;
+      }
+      .main-content.active {
+        margin-left: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container-fluid">
+      <button id="sidebarToggle" class="btn btn-outline-secondary d-md-none mr-auto mr-2">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a class="navbar-brand" href="{% url 'adminDash' %}">
+        <i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="btn" href="{% url 'add' %}" role="button">
+              <i class="fas fa-plus me-2"></i>Add Items
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="d-flex">
+    <nav id="sidebar" class="sidebar">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'adminDash' %}">
+              <i class="fas fa-home"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'manage_users' %}">
+              <i class="fas fa-users"></i> Manage Users
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_report' %}">
+              <i class="fas fa-recycle"></i> E-Waste Reports
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'itemview' %}">
+              <i class="fas fa-list"></i> Listed Items
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_orders' %}">
+              <i class="fas fa-shopping-cart"></i> User Orders
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_feedback' %}">
+              <i class="fas fa-comments"></i> Feedback
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <h1>Manage Users</h1>
+      <div class="card fade-in">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Profile</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in users %}
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>
+                    <img src="{% if user.profile_photo %}{{ user.profile_photo.url }}{% else %}{% static 'img/profile.webp' %}{% endif %}" alt="User Avatar">
+                  </td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>
+                    <a href="{% url 'edit_user' user.id %}" class="btn btn-edit btn-sm"><i class="fas fa-edit me-1"></i>Edit</a>
+                    <a href="{% url 'delete_user' user.id %}" class="btn btn-delete btn-sm" 
+                      onclick="return confirm('Are you sure you want to delete this user?');"><i class="fas fa-trash-alt me-1"></i>Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.querySelector('.main-content');
+
+      sidebarToggle.addEventListener('click', function () {
+        sidebar.classList.toggle('active');
+        mainContent.classList.toggle('active');
+      });
+
+      const navLinks = document.querySelectorAll('.sidebar .nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function () {
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

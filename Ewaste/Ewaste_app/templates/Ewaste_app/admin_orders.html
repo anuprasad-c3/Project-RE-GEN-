@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Orders</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Add your existing CSS styles here */
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa;
+        overflow-x: hidden;
+      }
+      .sidebar {
+        height: 100vh;
+        background: linear-gradient(45deg, #1a1a1a, #2c2c2c);
+        padding-top: 20px;
+        position: fixed;
+        width: 250px;
+        transition: all 0.3s;
+      }
+      .sidebar .nav-link {
+        color: #fff;
+        padding: 10px 15px;
+        transition: all 0.3s;
+      }
+      .sidebar .nav-link:hover, .sidebar .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+      .sidebar .nav-link i {
+        margin-right: 10px;
+      }
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        transition: all 0.3s;
+      }
+      .navbar {
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,.1);
+      }
+      .navbar-brand {
+        font-weight: 600;
+        color: #3a3a3a;
+      }
+      h1 {
+        font-weight: 700;
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .table-container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .table {
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .table-hover tbody tr {
+        transition: all 0.3s ease;
+      }
+      .table-hover tbody tr:hover {
+        background-color: rgba(255, 193, 7, 0.2);
+        transform: scale(1.02);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .badge-pending {
+        background-color: #ffc107;
+      }
+      .badge-completed {
+        background-color: #28a745;
+      }
+      .badge-cancelled {
+        background-color: #dc3545;
+      }
+      .btn {
+        transition: all 0.3s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (max-width: 768px) {
+        .sidebar {
+          margin-left: -250px;
+        }
+        .main-content {
+          margin-left: 0;
+        }
+        .sidebar.active {
+          margin-left: 0;
+        }
+        .main-content.active {
+          margin-left: 250px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+      <div class="container-fluid">
+        <button id="sidebarToggle" class="btn btn-outline-secondary d-md-none mr-auto mr-2">
+          <i class="fas fa-bars"></i>
+        </button>
+        <a class="navbar-brand" href="{% url 'adminDash' %}">
+          <i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="btn" href="{% url 'add' %}" role="button">
+                <i class="fas fa-plus me-2"></i>Add Items
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="d-flex">
+      <nav id="sidebar" class="sidebar">
+        <div class="position-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'adminDash' %}">
+                <i class="fas fa-home"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'manage_users' %}">
+                <i class="fas fa-users"></i> Manage Users
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin_report' %}">
+                <i class="fas fa-recycle"></i> E-Waste Reports
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'itemview' %}">
+                <i class="fas fa-list"></i> Listed Items
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'admin_orders' %}">
+                <i class="fas fa-shopping-cart"></i> User Orders
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin_feedback' %}">
+                <i class="fas fa-comments"></i> Feedback
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'index' %}">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main class="main-content">
+        <h1>User Orders</h1>
+        <div class="card fade-in">
+          <div class="card-body">
+            <h3>Filter Orders</h3>
+            <form id="filterForm">
+              <div class="mb-3">
+                <label for="month" class="form-label">Select Month</label>
+                <input type="month" class="form-control" id="month" name="month">
+              </div>
+              <button type="button" id="filterButton" class="btn btn-primary">Filter Orders</button>
+              <button type="button" id="resetButton" class="btn btn-secondary">Show All</button>
+            </form>
+            <hr>
+            <h4>Export Filtered Orders</h4>
+            <a id="exportCsv" href="#" class="btn btn-success">
+              <i class="fas fa-download"></i> Download as CSV
+            </a>
+            <a id="exportPdf" href="#" class="btn btn-danger">
+              <i class="fas fa-file-pdf"></i> Download as PDF
+            </a>
+          </div>
+        </div>
+        <div class="card fade-in">
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Order ID</th>
+                    <th>User</th>
+                    <th>Products</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                  {% for order in orders %}
+                  <tr data-date="{{ order.created_at|date:'Y-m' }}">
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.session_id }}</td>
+                    <td>
+                      {% for item in order.order_items.all %}
+                          {{ item.product.name }} (x{{ item.quantity }})<br> 
+                      {% endfor %}
+                    </td>
+                    <td>₹{{ order.total_amount }}</td>
+                    <td>
+                      <span
+                        class="badge text-dark {% if order.status == 'Completed' %} badge-completed {% elif order.status == 'Pending' %} badge-pending {% elif order.status == 'Cancelled' %} badge-cancelled {% endif %}"
+                      >
+                        {{ order.status }}
+                      </span>
+                    </td>
+                    <td>{{ order.created_at }}</td>
+                    <td>
+                      <button class="btn btn-info btn-sm view-order"
+                          data-order-id="{{ order.id }}"
+                          data-user="{{ order.session_id }}" 
+                          data-products="{% for item in order.order_items.all %}{{ item.product.name }} (x{{ item.quantity }}), {% endfor %}"
+                          data-price="{{ order.total_amount }}"
+                          data-status="{{ order.status }}">
+                          <i class="fa fa-eye"></i> View
+                      </button>
+                      <a
+                        href="{% url 'update_order_status' order.id 'Completed' %}"
+                        class="btn btn-success btn-sm"
+                        onclick="return confirm('Are you sure you want to mark this order as Completed?');"
+                      >
+                        <i class="fa fa-check"></i> Complete
+                      </a>
+                      <a
+                        href="{% url 'update_order_status' order.id 'Cancelled' %}"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to cancel this order?');"
+                      >
+                        <i class="fa fa-times"></i> Cancel
+                      </a>
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="7" class="text-center">No orders found.</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="orderModalLabel">Order Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>User:</strong> <span id="modal-user"></span></p>
+            <p><strong>Products:</strong> <span id="modalProducts"></span></p>
+            <p><strong>Total Price:</strong> $<span id="modalPrice"></span></p>
+            <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Animate table container
+        const tableContainer = document.querySelector('.table-container');
+        setTimeout(() => {
+          tableContainer.style.opacity = '1';
+          tableContainer.style.transform = 'translateY(0)';
+        }, 200);
+
+        // Filter orders by month
+        const filterButton = document.getElementById('filterButton');
+        const resetButton = document.getElementById('resetButton');
+        const monthInput = document.getElementById('month');
+        const orderRows = document.querySelectorAll('#orderTableBody tr');
+        const exportPdf = document.getElementById("exportPdf");
+
+        filterButton.addEventListener('click', () => {
+          const selectedMonth = monthInput.value;
+          orderRows.forEach(row => {
+            const rowDate = row.getAttribute('data-date');
+            if (selectedMonth && rowDate !== selectedMonth) {
+              row.style.display = 'none';
+            } else {
+              row.style.display = '';
+            }
+          });
+
+          exportPdf.href = `{% url 'export_orders' %}?month=${selectedMonth}&format=pdf`;
+        });
+
+        resetButton.addEventListener('click', () => {
+          monthInput.value = '';
+          orderRows.forEach(row => {
+            row.style.display = '';
+          });
+
+          exportPdf.href = "{% url 'export_orders' %}?format=pdf";
+        });
+
+        // View order details
+        document.querySelectorAll('.view-order').forEach(button => {
+          button.addEventListener('click', function () {
+            const user = this.getAttribute('data-user');
+            const products = this.getAttribute('data-products');
+            const price = this.getAttribute('data-price');
+            const status = this.getAttribute('data-status');
+
+            document.getElementById('modal-user').innerText = user;
+            document.getElementById('modalProducts').innerText = products;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('modalStatus').innerText = status;
+
+            new bootstrap.Modal(document.getElementById('orderModal')).show();
+          });
+        });
+
+        // Export to CSV
+        document.getElementById('exportCsv').addEventListener('click', () => {
+          const filteredRows = Array.from(orderRows).filter(row => row.style.display !== 'none');
+          const csvContent = "data:text/csv;charset=utf-8," 
+            + filteredRows.map(row => 
+              Array.from(row.cells).map(cell => cell.innerText).join(',')
+            ).join('\n');
+          const encodedUri = encodeURI(csvContent);
+          const link = document.createElement('a');
+          link.setAttribute('href', encodedUri);
+          link.setAttribute('download', 'orders.csv');
+          document.body.appendChild(link);
+          link.click();
+        });
+
+        // Export to PDF (requires a library like jsPDF)
+      });
+    </script>
+  </body>
+</html>

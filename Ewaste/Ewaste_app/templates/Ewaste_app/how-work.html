@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How It Works | eWaste Collection</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8f9fa;
+      }
+      .navbar {
+        background-color: #343a40;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 1rem 0;
+      }
+      
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffc107 !important;
+      }
+      
+      .nav-link {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.8) !important;
+        transition: color 0.3s ease;
+      }
+      
+      .nav-link:hover,
+      .nav-link.active {
+        color: #ffc107 !important;
+      }
+      h1 {
+        font-weight: 600;
+        color:rgb(0, 0, 0);
+      }
+      .step-card {
+        border: none;
+        border-radius: 15px;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        height: 100%;
+      }
+      .step-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+      .step-icon {
+        font-size: 60px;
+        color: #ffc107;
+        margin-bottom: 20px;
+      }
+      .footer {
+        background-color:rgb(32, 31, 31);
+        color: white;
+        padding: 30px 0;
+        text-align: center;
+        font-size: 14px;
+      }
+      .footer a {
+        color: #ffc107;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .footer a:hover {
+        color: #ffecb3;
+        text-decoration: underline;
+      }
+      .highlight {
+        color: #1a237e;
+        font-weight: bold;
+      }
+      h4 {
+        color: #1a237e;
+      }
+      .btn-primary {
+        background-color: #1a237e;
+        border-color: #1a237e;
+      }
+      .btn-primary:hover {
+        background-color: #0e1442;
+        border-color: #0e1442;
+      }
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s, transform 0.5s;
+      }
+      .animate-on-scroll.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+              <img src="{% static 'img/logo2.png' %}" alt="eWaste Logo" width="40" class="me-2">
+              eWaste Collection
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto d-flex gap-3">
+                  <li class="nav-item"><a class="nav-link " href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="{% url 'work' %}"><i class="fas fa-cogs"></i> How It Works</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"><i class="fas fa-info-circle"></i> About Us</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'my_orders' %}"><i class="fa-solid fa-bag-shopping"></i> My Orders</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'req_pickup' %}"><i class="fas fa-truck"></i> Request Pickup</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}"><i class="fas fa-phone"></i> Contact</a></li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5 pt-5" id="how-it-works">
+      <h1 class="text-center mb-4 animate-on-scroll">How It Works</h1>
+      <p class="text-center text-muted mb-5 animate-on-scroll">
+        Recycling your eWaste has never been easier. Follow our
+        <span class="highlight">three-step process</span> to make a positive
+        impact on the environment.
+      </p>
+      <div class="row g-4">
+        <!-- Step 1 -->
+        <div class="col-md-4 animate-on-scroll">
+          <div class="text-center step-card p-4">
+            <div class="step-icon mb-3">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h4>Step 1: Submit a Request</h4>
+            <p>
+              Start your eWaste recycling journey by completing our
+              <a href="#" class="highlight">online request form</a>. Share
+              details about the type and quantity of eWaste you have, along with
+              your preferred pickup date and location.
+            </p>
+            <p>
+              This step allows us to plan efficiently and offer you a smooth
+              experience.
+            </p>
+            <a href="{% url 'req_pickup' %}" class="btn btn-primary mt-3">Submit Request</a>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div class="col-md-4 animate-on-scroll">
+          <div class="text-center step-card p-4">
+            <div class="step-icon mb-3">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h4>Step 2: Pickup Scheduled</h4>
+            <p>
+              Once we receive your request, our team will confirm the details
+              and schedule a convenient pickup time. You'll receive an email or
+              text notification with all the necessary details.
+            </p>
+            <p>
+              Our professional team ensures safe handling of your eWaste while
+              respecting your time and convenience.
+            </p>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary mt-3">Track Pickup</a>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="col-md-4 animate-on-scroll">
+          <div class="text-center step-card p-4">
+            <div class="step-icon mb-3">
+              <i class="fas fa-recycle"></i>
+            </div>
+            <h4>Step 3: Recycle Responsibly</h4>
+            <p>
+              Your collected eWaste is transported to our certified recycling
+              facilities, where it undergoes environmentally safe processing. We
+              prioritize extracting reusable materials while disposing of
+              hazardous components responsibly.
+            </p>
+            <p>
+              By recycling with us, you're helping to reduce landfill waste and
+              conserve valuable natural resources.
+            </p>
+            <a href="{% url 'user_awareness' %}" class="btn btn-primary mt-3">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-3 mb-md-0">
+            <h5>About Us</h5>
+            <p>eWaste Collection is committed to responsible electronic waste recycling, making a positive impact on our environment.</p>
+          </div>
+          <div class="col-md-4 mb-3 mb-md-0">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">Home</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h5>Connect With Us</h5>
+            <div class="social-icons">
+              <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr class="mt-4 mb-3">
+        <div class="text-center">
+          &copy; 2024 eWaste Collection. All Rights Reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Animation on scroll
+      function animateOnScroll() {
+        var elements = document.querySelectorAll('.animate-on-scroll');
+        elements.forEach(element => {
+          var position = element.getBoundingClientRect();
+          if(position.top < window.innerHeight - 100) {
+            element.classList.add('show');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', animateOnScroll);
+      window.addEventListener('load', animateOnScroll);
+    </script>
+  </body>
+</html>
